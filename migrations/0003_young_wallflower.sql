@@ -1,0 +1,1 @@
+ALTER TABLE `USERS` ADD `PASSOWRD` varchar(250);

@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"alwaysStrict": true,
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"strictNullChecks": true,
+		"strict": true,
+		"experimentalDecorators": true,
+		"noUnusedParameters": true,
+		"noImplicitAny": true,
+		"isolatedModules": true,
+		"moduleResolution": "Node",
+		"outDir": "dist",
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["DOM", "Decorators", "ES2015", "ESNext"],
+		"sourceMap": true,
+		"baseUrl": "./src",
+		"target": "ES6",
+		"typeRoots": ["./src/@types", "./node_modules/@types"],
+		"paths": {
+			"~/*": ["*"]
+		}
+	}
+}

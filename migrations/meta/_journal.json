@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1722975531237,
+      "tag": "0000_serious_starhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1722978450494,
+      "tag": "0001_magical_unus",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1722978843269,
+      "tag": "0002_loose_dagger",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1722979951843,
+      "tag": "0003_young_wallflower",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1722980841511,
+      "tag": "0004_cynical_joseph",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1722981860028,
+      "tag": "0005_organic_retro_girl",
+      "breakpoints": true
+    }
+  ]
+}
