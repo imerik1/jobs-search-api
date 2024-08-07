@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import envs from '~/env';
 import zod, { ZodError } from 'zod';
 import { ResponseStatusException } from '~/exceptions/response-status-exception';
@@ -8,10 +8,10 @@ import { logger } from '..';
 export const bypass = (req: Request, _: Response, next: NextFunction) => {
 	const token = req.cookies['TOKEN__AUTH'];
 
-	if (!token) throw new JsonWebTokenError('Token is invalid');
+	if (!token) throw new jwt.JsonWebTokenError('Token is invalid');
 
 	jwt.verify(token, envs.JWT_SECRET, {}, (err, decoded) => {
-		if (err) throw new JsonWebTokenError('Token is invalid', err);
+		if (err) throw new jwt.JsonWebTokenError('Token is invalid', err);
 
 		req.deviceId = BigInt(zod.number().parse(decoded?.sub));
 	});
@@ -34,7 +34,7 @@ export const error = (
 			.end();
 	}
 
-	if (err instanceof JsonWebTokenError) {
+	if (err instanceof jwt.JsonWebTokenError) {
 		return res
 			.status(401)
 			.json(new ResponseStatusException(err.message, 401, []))

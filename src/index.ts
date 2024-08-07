@@ -1,7 +1,6 @@
-import './utils/polyfill';
-import envs from './env';
-
 import 'express-async-errors';
+import * as polyfill from './utils/polyfill';
+import envs from './env';
 import express from 'express';
 import winston from 'winston';
 import requestLogger from 'express-winston';
@@ -10,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import * as expressUtils from './utils/express-utils';
 
 const server: express.Express = express();
+polyfill.init();
 
 const loggerConfig = {
 	level: envs.LOG_LEVEL,
