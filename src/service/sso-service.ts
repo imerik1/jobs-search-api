@@ -61,7 +61,7 @@ class SSOService {
 		}
 	}
 
-	async createOrGetUser(info: ISSOServiceInfo) {
+	async createOrGetUser(info: ISSOServiceInfo, emailVerified: boolean = false) {
 		const user = await userService.getUserByEmail(info.email);
 		let userId = user?.id;
 
@@ -71,6 +71,7 @@ class SSOService {
 				lastName: info.lastName,
 				email: info.email,
 				picture: info.profilePhoto,
+				emailVerified,
 			});
 		}
 

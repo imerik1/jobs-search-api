@@ -1,9 +1,11 @@
+import './utils/polyfill';
 import envs from './env';
 
+import 'express-async-errors';
 import express from 'express';
 import winston from 'winston';
 import requestLogger from 'express-winston';
-import { authController } from './controller';
+import { authController, userController } from './controller';
 import cookieParser from 'cookie-parser';
 import * as expressUtils from './utils/express-utils';
 
@@ -20,10 +22,12 @@ const loggerConfig = {
 const logger = winston.createLogger(loggerConfig);
 
 server.use(cookieParser());
+server.use(express.json());
 server.use(requestLogger.logger(loggerConfig));
 
 // Define routes
 server.use('/api/v1/auth', authController);
+server.use('/api/v1/user', expressUtils.bypass, userController);
 // End
 
 server.use(expressUtils.error);
@@ -32,7 +36,4 @@ server.listen(envs.PORT, () => {
 	logger.info(`Server is running on port ${envs.PORT}`);
 });
 
-export default {
-	server,
-	logger,
-};
+export { server, logger };

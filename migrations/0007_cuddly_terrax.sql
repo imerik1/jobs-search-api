@@ -1,0 +1,13 @@
+CREATE TABLE `EMAIL_VERIFIED_USER` (
+	`ID` bigint AUTO_INCREMENT NOT NULL,
+	`DELETED` boolean DEFAULT false,
+	`DELETED_AT` timestamp,
+	`CREATED_AT` timestamp DEFAULT (now()),
+	`UPDATED_AT` timestamp DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	`CODE` varchar(120) NOT NULL,
+	`EXPIRES_IN` timestamp NOT NULL,
+	`USER_ID` bigint NOT NULL,
+	CONSTRAINT `EMAIL_VERIFIED_USER_ID` PRIMARY KEY(`ID`)
+);
+--> statement-breakpoint
+ALTER TABLE `USERS` ADD `EMAIL_VERIFIED_ID` bigint;

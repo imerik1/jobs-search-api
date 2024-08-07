@@ -5,6 +5,8 @@ import envs from '~/env';
 import jwt from 'jsonwebtoken';
 import ms from 'ms';
 import { and, eq } from 'drizzle-orm';
+import { userService } from './user-service';
+import { NotFoundException } from '~/exceptions/not-found-exception';
 
 interface IApiIpResponse {
 	ip: string;
@@ -52,6 +54,14 @@ class AuthService {
 		};
 	}
 
+	async login(email: string, password: string) {
+		const user = await userService.getUserByEmail(email, password);
+
+		if (!user) throw new NotFoundException('User not found');
+
+		return user.id;
+	}
+
 	async generateToken(
 		userId: bigint,
 		source: string,
@@ -65,6 +75,7 @@ class AuthService {
 			.from(devicesUser)
 			.where(
 				and(
+					eq(devicesUser.userId, userId),
 					eq(devicesUser.ipAddress, ipAddress),
 					eq(devicesUser.source, source),
 					eq(devicesUser.userAgent, userAgent),
@@ -73,7 +84,7 @@ class AuthService {
 
 		let deviceId = device?.id;
 
-		if (deviceId) {
+		if (!deviceId) {
 			const [device] = await database
 				.insert(devicesUser)
 				.values({

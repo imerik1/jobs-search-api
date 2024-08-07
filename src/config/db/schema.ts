@@ -4,7 +4,6 @@ import {
 	boolean,
 	decimal,
 	mysqlTable,
-	serial,
 	timestamp,
 	varchar,
 } from 'drizzle-orm/mysql-core';
@@ -26,6 +25,7 @@ export const users = mysqlTable('USERS', {
 	picture: varchar('PICTURE_URL', { length: 200 }),
 	termsCondition: boolean('TERMS_CONDITION').default(false),
 	email: varchar('EMAIL', { length: 30 }).notNull().unique(),
+	emailVerified: boolean('EMAIL_VERIFIED').notNull().default(false),
 });
 
 export const userRelations = relations(users, ({ one, many }) => ({
@@ -35,10 +35,29 @@ export const userRelations = relations(users, ({ one, many }) => ({
 	termsJob: many(termsJobUser),
 }));
 
+export const usersTemporary = mysqlTable('USERS_TEMPORARY', {
+	...baseTable,
+	email: varchar('EMAIL', { length: 30 }).notNull(),
+	firstName: varchar('FIRST_NAME', { length: 30 }).notNull(),
+	lastName: varchar('LAST_NAME', { length: 30 }).notNull(),
+	termsCondition: boolean('TERMS_CONDITION').default(false),
+	salt: varchar('SALT', { length: 300 }).notNull(),
+	hash: varchar('HASH', { length: 300 }).notNull(),
+});
+
+export const emailVerifiedUser = mysqlTable('EMAIL_VERIFIED_USER', {
+	...baseTable,
+	code: varchar('CODE', { length: 120 }).notNull().unique(),
+	expiresIn: timestamp('EXPIRES_IN').notNull(),
+	userId: bigInt('USER_TEMPORARY_ID')
+		.references(() => usersTemporary.id)
+		.notNull(),
+});
+
 export const passwordUser = mysqlTable('PASSWORD_USER', {
 	...baseTable,
 	salt: varchar('SALT', { length: 300 }).notNull(),
-	hash: varchar('SALT', { length: 300 }).notNull(),
+	hash: varchar('HASH', { length: 300 }).notNull(),
 	userId: bigInt('USER_ID')
 		.references(() => users.id)
 		.notNull(),

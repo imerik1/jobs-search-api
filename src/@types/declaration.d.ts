@@ -3,3 +3,7 @@ declare namespace Express {
 		deviceId: bigint;
 	}
 }
+
+interface BigInt {
+	toJSON: () => number;
+}

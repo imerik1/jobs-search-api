@@ -1,8 +1,6 @@
 import envs from '~/env';
 import { ISSOService } from './sso-service';
 import axios from 'axios';
-import { NotFoundException } from '~/exceptions/not-found-exception';
-import { ResponseException } from '~/exceptions/response-exception';
 import { BadRequestException } from '~/exceptions/bad-request-exception';
 
 const {

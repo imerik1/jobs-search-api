@@ -13,12 +13,14 @@ Jobs Search API
   - Choose do-sfo as region
   - Download certificate and put in root directory (DO NOT COMMIT THIS FILE)
     - jobs-search-api/ca.pem
-- Optional:
-  - Create a new App in [Linkedin Developer](https://developer.linkedin.com/) to authentication
-  - Add the following products:
-    - Sign In with LinkedIn using OpenID Connect
-
-# Rules
-
-- Always use res.send or res.json to set a body
-- Always use res.status to set a status
+- Use any provider with support to SMTP to send email
+  - MailTrap
+  - Gmail
+  - Outlook
+- Create a new App in [Linkedin Developer](https://developer.linkedin.com/) to authentication
+- Add the following products:
+  - Sign In with LinkedIn using OpenID Connect
+  - Add URLs callback eg. http://localhost:8080/api/v1/auth/sso/callback?provider=linkedin
+    - Provide your production domain too, if you have one
+- Generate two new environment variables JWT_SECRET and CRYPTO_SECRET for your application using the following command:
+  `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
