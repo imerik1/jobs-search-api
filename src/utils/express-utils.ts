@@ -4,6 +4,9 @@ import envs from '~/env';
 import zod, { ZodError } from 'zod';
 import { ResponseStatusException } from '~/exceptions/response-status-exception';
 import { logger } from '..';
+import database, { connection } from '~/config/database';
+import { promisify } from 'util';
+import { sql } from 'drizzle-orm';
 
 export const bypass = (req: Request, _: Response, next: NextFunction) => {
 	const token = req.cookies['TOKEN__AUTH'];
@@ -17,6 +20,11 @@ export const bypass = (req: Request, _: Response, next: NextFunction) => {
 	});
 
 	next();
+};
+
+export const health = async (_: Request, res: Response) => {
+	await database.execute(sql`select 1`);
+	return res.status(200).json({ status: 'OK' }).end();
 };
 
 export const error = (

@@ -28,6 +28,7 @@ server.use(requestLogger.logger(loggerConfig));
 // Define routes
 server.use('/api/v1/auth', authController);
 server.use('/api/v1/user', expressUtils.bypass, userController);
+server.use('/health', expressUtils.health);
 // End
 
 server.use(expressUtils.error);
