@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import zod from 'zod';
-import { isPositive } from './utils/zod-utils';
+import { formatPath, isPositive } from './utils/zod-utils';
 
 dotenv.config();
 
@@ -35,6 +35,7 @@ const schema = zod.object({
 	DATABASE_PASS: zod.string(),
 	DATABASE_PORT: zod.preprocess(Number, zod.number()),
 	DATABASE_NAME: zod.string(),
+	DATABASE_CERTIFICATE_PATH: zod.preprocess(formatPath, zod.string()),
 });
 
 export default schema.parse(process.env);

@@ -1,6 +1,5 @@
 import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
-import path from 'path';
 import fs from 'fs';
 import envs from '~/env';
 import * as schema from './db/schema';
@@ -14,7 +13,7 @@ export const connection = mysql.createPool({
 	connectionLimit: 2,
 	multipleStatements: true,
 	ssl: {
-		ca: fs.readFileSync(path.join(process.cwd(), 'ca.pem')),
+		ca: fs.readFileSync(envs.DATABASE_CERTIFICATE_PATH),
 	},
 });
 

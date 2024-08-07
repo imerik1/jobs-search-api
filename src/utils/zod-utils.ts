@@ -21,3 +21,11 @@ export const extractToken = (arg: unknown) => {
 
 	return arg.split(' ')[1];
 };
+
+export const formatPath = (arg: unknown) => {
+	if (typeof arg !== 'string') {
+		return null;
+	}
+
+	return arg.replace('{CURRENT_DIR}', process.cwd());
+};
