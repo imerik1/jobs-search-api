@@ -68,6 +68,7 @@ class AuthService {
 		ipAddress: string,
 		userAgent: string,
 	) {
+		ipAddress = ipAddress.split(',')[0].trim();
 		const address = await this.getAddressByIp(ipAddress);
 
 		const [device] = await database
