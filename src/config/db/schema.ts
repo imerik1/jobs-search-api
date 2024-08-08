@@ -83,7 +83,7 @@ export const termsJobUserRelations = relations(termsJobUser, ({ one }) => ({
 
 export const devicesUser = mysqlTable('DEVICES_USER', {
 	...baseTable,
-	ipAddress: varchar('IP_ADDRESS', { length: 32 }).notNull(),
+	ipAddress: varchar('IP_ADDRESS', { length: 64 }).notNull(),
 	source: varchar('SOURCE', { length: 20 }),
 	city: varchar('CITY', { length: 20 }),
 	state: varchar('STATE', { length: 3 }),
