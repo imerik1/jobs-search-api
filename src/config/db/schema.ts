@@ -66,8 +66,12 @@ export const passwordUser = mysqlTable('PASSWORD_USER', {
 export const termsJobUser = mysqlTable('TERMS_JOB_USER', {
 	...baseTable,
 	termsCondition: boolean('TERMS_CONDITION').default(false),
-	userId: bigInt('USER_ID').notNull(),
-	jobId: bigInt('JOB_ID').notNull(),
+	userId: bigInt('USER_ID')
+		.references(() => users.id)
+		.notNull(),
+	jobId: bigInt('JOB_ID')
+		.references(() => jobsAds.id)
+		.notNull(),
 });
 
 export const termsJobUserRelations = relations(termsJobUser, ({ one }) => ({
@@ -89,7 +93,9 @@ export const devicesUser = mysqlTable('DEVICES_USER', {
 	state: varchar('STATE', { length: 3 }),
 	country: varchar('COUNTRY', { length: 3 }),
 	userAgent: varchar('USER_AGENT', { length: 300 }),
-	userId: bigInt('USER_ID').notNull(),
+	userId: bigInt('USER_ID')
+		.references(() => users.id)
+		.notNull(),
 });
 
 export const devicesUserRelations = relations(devicesUser, ({ one }) => ({
@@ -110,7 +116,9 @@ export const jobsAds = mysqlTable('JOBS_ADS', {
 	remote: boolean('REMOTE').default(false),
 	termsCondition: boolean('TERMS_CONDITION').default(false),
 	sendEmailToSignature: boolean('SEND_EMAIL_TO_SIGNATURE').default(false),
-	signatureBy: bigInt('USER_ID').notNull(),
+	signatureBy: bigInt('USER_ID')
+		.references(() => users.id)
+		.notNull(),
 });
 
 export const jobsAdsRelations = relations(jobsAds, ({ one, many }) => ({
