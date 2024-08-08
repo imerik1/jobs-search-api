@@ -43,7 +43,7 @@ class AuthService {
 
 	private async getAddressByIp(ipAddress: string) {
 		const url = new URL(envs.IP_API_URI);
-		url.pathname = ipAddress;
+		url.pathname = `${ipAddress}/json`;
 
 		const response = await axios.get<IApiIpResponse>(url.toString());
 
